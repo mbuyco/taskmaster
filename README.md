@@ -2,7 +2,7 @@
 
 Taskmaster is a simple CLI tool which allows you to manage your tasks straight from your terminal.
 
-Inspired by the CLI tool (https://github.com/taskwarrior/task)[Task Warrior]
+Inspired by the CLI tool [Taskwarrior](https://github.com/taskwarrior/task)
 
 ## Installation
 
