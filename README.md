@@ -15,7 +15,7 @@ git clone https://github.com/mbuyco/taskmaster.git $HOME/.taskmaster
 2. Make executable (sudo privileges required)
 
 ```
-sudo ln -s $HOME/.taskmaster/taskmaster.rb /usr/local/bin/taskm
+sudo ln -s $HOME/.taskmaster/bin/taskmaster.rb /usr/local/bin/taskm
 ```
 
 ## Usage
