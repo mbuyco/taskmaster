@@ -3,7 +3,7 @@
 require 'terminal-table'
 
 require_relative '../task'
-require_relative './commands'
+require_relative '../constants'
 
 module TaskMaster
   module TaskCLI
@@ -17,7 +17,7 @@ module TaskMaster
         unless valid_command?(command)
           puts "ERROR: Invalid command\n\n"
           puts 'List of commands:'
-          puts TaskCLI::Commands.list.join("\n")
+          puts Constants::Commands.all.join("\n")
           exit(1)
         end
 
@@ -38,16 +38,13 @@ module TaskMaster
           rows.each { |row| table << row.values.map(&:to_s) }
         end
 
-        Terminal::Table.new({
-          rows: table,
-          style: { width: 60 }
-        })
+        Terminal::Table.new({ rows: table })
       end
 
       private
 
       def valid_command?(command)
-        TaskCLI::Commands.list.include?(command.to_sym)
+        Constants::Commands.all.include?(command.to_sym)
       end
 
       def handle_command(command, args = [])
