@@ -12,10 +12,10 @@ Inspired by the CLI tool [Taskwarrior](https://github.com/taskwarrior/task)
 git clone https://github.com/mbuyco/taskmaster.git $HOME/.taskmaster
 ```
 
-2. Make executable (sudo privileges required)
+2. Run installer
 
 ```
-sudo ln -s $HOME/.taskmaster/bin/taskmaster.rb /usr/local/bin/taskm
+cd $HOME/.taskmaster && sh install.sh
 ```
 
 ## Usage
