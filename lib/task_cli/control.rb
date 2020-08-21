@@ -67,12 +67,11 @@ module TaskMaster
           
           Task.delete(args[0].to_i)
         when :edit
-          id = args[0].to_i
-          task = Task.find(id)
+          task = Task.find(args[0].to_i)
 
           return if task.nil?
 
-          Task.edit(id, args[1])
+          Task.edit(id, { desc: args[1] })
 
           puts 'Edited task:'
           puts render_table([task])
