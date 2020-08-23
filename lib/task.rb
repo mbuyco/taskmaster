@@ -32,10 +32,6 @@ module TaskMaster
       Task.list.find { |row| row[:id] == id }
     end
 
-    def self.initialize_store
-      @store.create(@file_path, { tasks: [] })
-    end
-
     def self.list
       @store.get(:tasks)
     end

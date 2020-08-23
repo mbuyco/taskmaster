@@ -8,22 +8,9 @@ require_relative '../constants'
 module TaskMaster
   module TaskCLI
     class Control
-      def initialize(command, args)
-        if command.nil?
-          handle_command(:list)
-          exit
-        end
-
-        unless valid_command?(command)
-          puts "ERROR: Invalid command\n\n"
-          puts 'List of commands:'
-          puts Constants::Commands.all.join("\n")
-          exit(1)
-        end
-
-        Task.initialize_store
-
-        handle_command(command, args)
+      def initialize(command, args = [])
+        @command = command.nil? ? nil : command.to_sym
+        @args = []
       end
 
       def render_table(rows)
@@ -41,7 +28,17 @@ module TaskMaster
         Terminal::Table.new({ rows: table })
       end
 
+      def run
+        return nil unless valid_command?(@command)
+
+        send(@command)
+      end
+
       private
+
+      def list
+        puts render_table(Task.list)
+      end
 
       def valid_command?(command)
         Constants::Commands.all.include?(command.to_sym)
@@ -53,8 +50,6 @@ module TaskMaster
         case command.to_sym
         when :create
           Task.new({ desc: args[0..args.length].join(' ') }).save
-          puts render_table(Task.list)
-        when :list
           puts render_table(Task.list)
         when :delete
           id = args[0].to_i
