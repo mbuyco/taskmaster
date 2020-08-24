@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require './lib/task_cli/control'
-require './lib/task'
+require_relative '../../../lib/task_cli/control'
+require_relative '../../../lib/task'
 
 RSpec.describe TaskMaster::TaskCLI::Control do
-  context '#initialize' do
+  context '.initialize' do
     it 'initialize a taskmaster cli control with given command and arguments' do
       control = described_class.new(:list, 'my arg1', 'my arg 2')
 

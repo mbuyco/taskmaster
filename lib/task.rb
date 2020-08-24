@@ -5,13 +5,19 @@ require_relative 'json_store'
 
 module TaskMaster
   class Task
+    include TaskMaster::Constants::Status
+
     @file_path = File.expand_path('../store/tasks.json', __dir__)
     @store = JSONStore.read(@file_path)
 
     def self.delete(id)
-      Task.list.delete_if { |row| row[:id] == id }
-      Task.store.set(:tasks, Task.list)
-      Task.store.save!
+      task_index = list.find_index { |task| task[:id] == id }
+
+      return if task_index.nil?
+
+      list.delete_at(task_index)
+      store.set(:tasks, list)
+      store.save!
     end
 
     def self.done(id)
@@ -19,21 +25,23 @@ module TaskMaster
     end
 
     def self.edit(id, data = {})
-      row_index = Task.list.find_index { |row| row[:id] == id }
+      row_index = list.find_index { |row| row[:id] == id }
 
-      Task.list[row_index][:description] = data[:desc]
-      Task.list[row_index][:status] = data[:status]
+      return if row_index.nil?
 
-      Task.store.set(:tasks, Task.list)
-      Task.store.save!
+      list[row_index][:description] = data[:desc]
+      list[row_index][:status] = data[:status]
+
+      store.set(:tasks, list)
+      store.save!
     end
 
     def self.find(id)
-      Task.list.find { |row| row[:id] == id }
+      list.find { |row| row[:id] == id }
     end
 
     def self.list
-      @store.get(:tasks)
+      store.get(:tasks)
     end
 
     def self.store
@@ -44,16 +52,26 @@ module TaskMaster
       @task = {
         id: Task.list.length + 1,
         description: options[:desc],
-        status: options[:status] || Constants::Status::TODO
+        status: options[:status] || TODO
       }
     end
 
-    def save
-      return if @task.nil?
+    def get
+      @task
+    end
 
+    def save
       Task.store.set(:tasks, [*Task.list, @task])
       Task.store.save!
-      @task = nil
+      self
+    end
+
+    def set(task)
+      @task = @task.merge({
+        id: task[:id] || @task[:id],
+        description: task[:desc] || @task[:description],
+        status: task[:status] || @task[:status]
+      })
     end
   end
 end
