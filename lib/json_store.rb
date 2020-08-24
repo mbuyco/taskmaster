@@ -4,21 +4,12 @@ require 'json'
 
 module TaskMaster
   class JSONStore
-    def self.create(file_path, data = {})
-      return if File.exist?(file_path)
-
-      @file_path = file_path
-      File.write(@file_path, data)
-    end
-
     def self.read(file_path)
       @file_path = file_path
 
-      if File.exist?(@file_path)
-        file = File.read(@file_path)
-      else 
-        file = File.write(@file_path)
-      end
+      return unless File.exist?(@file_path)
+
+      file = File.read(@file_path)
 
       @store = JSON.parse(file, { symbolize_names: true })
       self
