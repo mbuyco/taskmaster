@@ -9,7 +9,7 @@ module TaskMaster
   module TaskCLI
     class Control
       def initialize(command, *args)
-        @command = command.nil? ? nil : command.to_sym
+        @command = command.nil? ? :list : command.to_sym
         @args = args.flatten || []
       end
 

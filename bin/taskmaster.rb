@@ -7,4 +7,5 @@ require_relative '../lib/task_cli/control'
 command = ARGV[0]
 args = ARGV[1..ARGV.length]
 
-TaskMaster::TaskCLI::Control.new(command, args)
+control = TaskMaster::TaskCLI::Control.new(command, args)
+control.run
