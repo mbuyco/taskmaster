@@ -55,8 +55,6 @@ Delete a task
 taskm delete [task_id]
 ```
 
-**TODO: Modify task status**
-
 ## Author
 
 Mike Buyco <mbuyco@protonmail.com>
