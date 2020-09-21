@@ -6,8 +6,8 @@ Inspired by the CLI tool [Taskwarrior](https://github.com/taskwarrior/task
 
 ## Prerequisites
 
-- `ruby-2.7.1`
-- `bundler-2.1.4`
+- `ruby-2.x`
+- `bundler-2.x`
 
 ## Installation
 
