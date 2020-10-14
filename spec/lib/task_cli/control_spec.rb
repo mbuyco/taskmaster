@@ -40,6 +40,34 @@ RSpec.describe TaskMaster::TaskCLI::Control do
 
       control.run
     end
+
+    it 'should not allow blank task description' do
+      task_desc = ''
+      task_stub = instance_double(TaskMaster::Task, save: nil)
+
+      allow(TaskMaster::Task).to receive(:new) { task_stub }
+
+      control = described_class.new(:create, [task_desc]);
+
+      expect(TaskMaster::Task).to_not receive(:new).with({ desc: task_desc })
+      expect(task_stub).to_not receive(:save)
+      expect(control).to_not receive(:render_table)
+
+      control.run
+    end
+
+    it 'should have spaces in between command arguments' do
+      task_desc_arr = ['foo', 'bar']
+      task_stub = instance_double(TaskMaster::Task, save: nil)
+
+      allow(TaskMaster::Task).to receive(:new) { task_stub }
+
+      control = described_class.new(:create, task_desc_arr);
+
+      expect(TaskMaster::Task).to receive(:new).with({ desc: task_desc_arr.join(' ') })
+
+      control.run
+    end
   end
 
   context '#delete' do

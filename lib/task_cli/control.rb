@@ -39,7 +39,11 @@ module TaskMaster
       private
 
       def create
-        Task.new({ desc: @args.join('') }).save
+        desc = @args.join(' ')
+
+        return if desc.strip.empty?
+
+        Task.new({ desc: desc }).save
         puts render_table(Task.list)
       end
 
