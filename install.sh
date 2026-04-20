@@ -1,19 +1,13 @@
 #!/bin/sh
 
-TASKM_DIR="$HOME/.taskmaster"
+set -eu
 
-# Initialize JSON datastore
-if [ ! -d "$TASKM_DIR/store" ]; then
-	mkdir "$TASKM_DIR/store"
-fi
+cat <<'EOF'
+[DEPRECATED] install.sh is no longer supported.
 
-if [ ! -f "$TASKM_DIR/store/tasks.json" ]; then
-	touch "$TASKM_DIR/store/tasks.json"
-	echo '{ "tasks": [] }' > "$TASKM_DIR/store/tasks.json"
-fi
+Use one of the documented workflows in README.md instead:
+- Local Ruby execution via Bundler
+- Docker execution with a persistent /app/store volume
+EOF
 
-# Install executable
-if [ -d "$TASKM_DIR/.taskmaster" ]; then
-	sudo ln -s "$TASKM_DIR/bin/taskmaster.rb" /usr/local/bin/taskm
-fi
-
+exit 1

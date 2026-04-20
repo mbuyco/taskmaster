@@ -1,0 +1,7 @@
+.git
+.gitignore
+spec
+store
+README.md
+LICENSE.md
+install.sh

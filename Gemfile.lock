@@ -23,8 +23,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  rspec
-  terminal-table
+  rspec (~> 3.9)
+  terminal-table (~> 1.8)
 
 BUNDLED WITH
-   2.1.4
+   2.6.9
